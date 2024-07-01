@@ -31,3 +31,25 @@ fetchSimilarMovies(id: string) {
     )
     .pipe(map((data)=> data.results));
 }
+
+fetchMovieById(id: string) {
+  return this.httpClient.get<Movie>(
+    `${this.apiUrl}/movie/${id}?api_key=${this.apiKey}`
+  )
+}
+
+fetchMovieVideos(id: string) {
+  return this.httpClient
+    .get<Videos>(
+      `${this.apiUrl}/movie/${id}/videos?api_key=${this.apiKey}`
+    )
+    .pipe(map((data) => data.results))
+}
+
+fetchMovieCast(id: string) {
+  return this.httpClient
+    .get<Credits>(
+      `${this.apiUrl}/movie/${id}/credits?api_key=${this.apiKey}`
+    )
+    .pipe(map((data) => data.cast))
+}
