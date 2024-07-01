@@ -18,3 +18,16 @@ export class MoviesService {
   private httpClient = inject(HttpClient);
   constructor() { }
 }
+
+fetchMoviesByType(type: string, pageNumber = 1) {
+  return this.httpClient
+    .get<Movies>(`${this.apiUrl}/movie/${type}?page=${pageNumber}&api_key=${this.apiKey}`)
+}
+
+fetchSimilarMovies(id: string) {
+  return this.httpClient
+    .get<Movies>(
+      `${this.apiUrl}/movie/${id}/similar?api_key=${this.apiKey}`
+    )
+    .pipe(map((data)=> data.results));
+}
